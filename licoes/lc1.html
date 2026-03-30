@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lieufrère - Primeira Lição</title>
+    <link rel="stylesheet" href="https://guyotjs.github.io/bcss/bc.css">
+    <link rel="shortcut icon" href="https://guyotjs.github.io/duckclear2.png" type="image/x-icon">
+    <style>
+        .full-btn{
+            width:300px;
+        }
+        .text{
+            /* min-width:300px; */
+            max-width:400px;
+            text-align: left;
+            /* border:1px solid black; */
+            animation: fadeDown 0.3s ease-in;
+        }
+        sub{
+            animation: fadeDown 0.5s ease-in;
+        }
+        .hover-shadow:hover{
+            box-shadow:0px 0px 10px rgba(0, 0, 0, 0.277);
+        }
+        .buttons{
+            position: relative;
+            animation: fadeUp 0.3s ease-in;
+        }
+        #next{
+            position:absolute;
+        }
+        .small-btn{
+            width: 143px;
+        }
+        a{
+            all:unset;
+        }
+        .bring-back{
+            transform: translate(calc(-50% - 5px));
+            background-color: rgba(0, 0, 0, 0.11);
+        }
+        @keyframes fadeUp{
+            from { opacity:0; transform:translateY(14px); } 
+            to { opacity:1; transform:none; } 
+        }
+        @keyframes fadeDown{ 
+            from { opacity:0; transform:translateY(-10px); } 
+            to { opacity:1; transform:none; } 
+        }
+
+    </style>
+</head>
+<body data="{question:'',subtext:'',options:[],next:false,complete:false}">
+    <div class="true-center text-center container" if="!complete">
+        <h1 class="sans no-bold text" react>{{question}}</h1>
+        <br>
+        <sub class="italic" react>{{subtext}}</sub>
+        <br/><br>
+        <div class="buttons">
+            <button onclick="answer(0)" id="one" class="no-border full-btn black p m w-full r hover-shadow" react>{{options[0][0]}}</button><br>
+            <button onclick="answer(1)" id="two" class="no-border full-btn black p m w-full r hover-shadow" react>{{options[1][0]}}</button><br>
+            <button onclick="answer(2)" id="three" class="no-border full-btn black p m w-full r hover-shadow" react>{{options[2][0]}}</button><br>
+            <button onclick="answer(3)" id="four" class="no-border full-btn black p m w-full r hover-shadow" react>{{options[3][0]}}</button><br>
+            <button onclick="next()" if="next" id="next" class="no-border bring-back full-btn black p m w-full r hover-shadow">Next Question</button>
+        </div>
+    </div>
+    <div class="true-center container" if="complete">
+        <h1 class="sans no-bold">You have completed every question.</h1>
+    </div>
+    <script>
+        function random(e){return Math.floor(Math.random()*e)}function toggle(e){return!e}const getElms=()=>{var e,t=[];for(i=0,e=document.getElementsByTagName("*");i<e.length;i++)t.push(e[i]);return t},elements=getElms(),parseData=()=>{var hasDataTag,possible=!1;let data=document.querySelector("[data]").getAttribute("data"),okay;return eval(data=`()=>{ return new Proxy(${data}, {set(target,property,value){target[property] = value;$render();return true;}})}`)()},data=parseData(),parseReval=()=>{var e=[],t=Array.from(document.querySelectorAll("[react]"));for(let r=0;r<t.length;r++)e.push({elem:t[r],oldTxt:t[r].innerHTML,pre:"",post:""});return e},reval=parseReval(),revaluate=template=>template.replace(/{{(.*?)}}/g,(_,expression)=>{try{for(let i=0;i<Object.keys(data).length;i++)expression.includes(Object.keys(data)[i])&&(expression=expression.replaceAll(`${Object.keys(data)[i]}`,`data.${Object.keys(data)[i]}`));return eval(expression)}catch(error){return`{{${expression}}}`}}),renderReval=()=>{if(reval.length>0)for(i=0;i<reval.length;i++)reval[i].elem.innerHTML=revaluate(reval[i].oldTxt)},parseFors=()=>{let e,t=[];for(i=0;i<elements.length;i++)null!=(e=elements[i].getAttribute("for"))&&t.push({elem:elements[i],attr:e});return t},fors=parseFors(),renderFors=()=>{for(i=0;i<fors.length;i++){fors[i].elem.innerHTML="";let e="",t=fors[i].elem.getAttribute("item"),r=fors[i].attr;for(q=0;q<data[r].length;q++)e+=t.replaceAll("{{item}}",data[r][q]).replaceAll("{{i}}",q);fors[i].elem.innerHTML=e}},renderIfs=()=>{if(ifs.length>0)for(i=0;i<ifs.length;i++){let trueAttr=ifs[i].attr;for(q=0;q<Object.keys(data).length;q++)trueAttr.includes(Object.keys(data)[q])&&(trueAttr=trueAttr.replace(Object.keys(data)[q],`data[Object.keys(data)[${q}]]`));eval(trueAttr)?ifs[i].elem.style.display="":ifs[i].elem.style.display="none"}},$render=()=>{renderReval(),renderIfs(),renderFors()},parseScreen=()=>{var e,t=[];for(i=0;i<elements.length;i++)null!=(e=elements[i].getAttribute("computer"))?t.push({elem:elements[i],attr:"computer"}):null!=elements[i].getAttribute("mobile")&&t.push({elem:elements[i],attr:"mobile"});return t},screens=parseScreen(),renderScreens=()=>{for(i=0;i<screens.length;i++)"mobile"==screens[i].attr&&(window.innerWidth<=600?screens[i].elem.style.display="block":screens[i].elem.style.display="none"),"computer"==screens[i].attr&&(window.innerWidth>=600?screens[i].elem.style.display="block":screens[i].elem.style.display="none")},parseIf=()=>{var e,t=[];for(i=0;i<elements.length;i++)null!=(e=elements[i].getAttribute("if"))&&t.push({elem:elements[i],attr:e,computed:void 0,pre:"",post:""});return t},ifs=parseIf(),exe=()=>{var hasExe;for(i=0;i<elements.length;i++)if(null!=(hasExe=elements[i].getAttribute("eval"))){for(q=0;q<Object.keys(data).length;q++)hasExe.includes(Object.keys(data)[q])&&(hasExe=hasExe.replace(Object.keys(data)[q],`data[Object.keys(data)[${q}]]`));eval(hasExe)}$render()};exe();const allowInclReturn=(e,t)=>{(xhttp=new XMLHttpRequest).onreadystatechange=function(){4==this.readyState&&200==this.status&&(e.innerHTML=this.responseText)},xhttp.open("GET",t,!0),xhttp.send()},parseIncl=()=>{let e;for(i=0;i<elements.length;i++)e=elements[i].getAttribute("incl"),elem=elements[i],null!=e&&allowInclReturn(elem,e)};parseIncl();const parseBind=()=>{let e,t=[];for(i=0;i<elements.length;i++)if(null!=(e=elements[i].getAttribute("bind")))for(q=0;q<Object.keys(data).length;q++)e.includes(Object.keys(data)[q])&&t.push({elem:elements[i],attr:e});return t},bound=parseBind(),renderBinds=()=>{let e;for(i=0;i<bound.length;i++)bound[i].elem.addEventListener("input",function(t){setTimeout(()=>{data[e=bound[i].attr]=bound[i].elem.value,$render()},0)})};renderBinds();const $=change=>{let update=change;for(let i=0;i<Object.keys(data).length;i++)update.includes(Object.keys(data)[i])&&(update=update.replaceAll(Object.keys(data)[i],`data.${Object.keys(data)[i]}`));eval(update)};window.main=function(){requestAnimationFrame(main),renderScreens()},main(),$render();
+    </script>
+    <script>
+        let language = JSON.parse(`
+        [
+            [
+                { "g": "Eu ___ uma conta nova no banco ontem.", "e": "I created a new account at the bank yesterday.", "a": ["criei", true], "b": ["criava", false], "c": ["crio", false], "d": ["criarei", false] },
+                { "g": "Ela ___ um café pela manhã todos os dias.", "e": "She drinks a coffee every morning.", "a": ["toma", true], "b": ["tomou", false], "c": ["tomava", false], "d": ["tomará", false] },
+                { "g": "Eu ___ muito cansado depois do trabalho.", "e": "I was really tired after work.", "a": ["tava", true], "b": ["fui", false], "c": ["serei", false], "d": ["fiquei", false] },
+                { "g": "Nós ___ um projeto novo para a empresa.", "e": "We created a new project for the company.", "a": ["criamos", true], "b": ["criemos", false], "c": ["criávamos", false], "d": ["criaremos", false] },
+                { "g": "Eu ___ uma reunião importante semana passada.", "e": "I had an important meeting last week.", "a": ["tive", true], "b": ["tinha", false], "c": ["terei", false], "d": ["tenho", false] },
+                { "g": "O professor ___ o novo aluno para a turma.", "e": "The teacher introduced the new student to the class.", "a": ["apresentou", true], "b": ["apresentava", false], "c": ["apresenta", false], "d": ["apresentará", false] },
+                { "g": "Você já ___ mudar de emprego?", "e": "Have you already considered changing jobs?", "a": ["considerou", true], "b": ["considera", false], "c": ["considerará", false], "d": ["considerava", false] },
+                { "g": "Eu ___ um problema sério no trabalho ontem.", "e": "I had a serious problem at work yesterday.", "a": ["tive", true], "b": ["tinha", false], "c": ["terei", false], "d": ["tenho", false] },
+                { "g": "Ela ___ dormindo quando eu cheguei.", "e": "She was sleeping when I arrived.", "a": ["tava", true], "b": ["ficava", false], "c": ["foi", false], "d": ["é", false] },
+                { "g": "Eles ___ uma solução diferente para o problema.", "e": "They considered a different solution to the problem.", "a": ["consideraram", true], "b": ["consideram", false], "c": ["considerarão", false], "d": ["consideravam", false] },
+                { "g": "Eu ___ remédio para a dor de cabeça.", "e": "I took medicine for the headache.", "a": ["tomei", true], "b": ["tomo", false], "c": ["tomava", false], "d": ["tomarei", false] },
+                { "g": "Ela ___ um blog sobre culinária brasileira.", "e": "She created a blog about Brazilian cuisine.", "a": ["criou", true], "b": ["cria", false], "c": ["criava", false], "d": ["criará", false] },
+                { "g": "Eu me ___ ao diretor da escola.", "e": "I introduced myself to the school principal.", "a": ["apresentei", true], "b": ["apresento", false], "c": ["apresentava", false], "d": ["apresentarei", false] },
+                { "g": "Nós ___ muito frio naquele inverno.", "e": "We were very cold that winter.", "a": ["tivemos", true], "b": ["tínhamos", false], "c": ["teremos", false], "d": ["temos", false] },
+                { "g": "Você ___ a proposta antes de recusar?", "e": "Did you consider the proposal before refusing?", "a": ["considerou", true], "b": ["considera", false], "c": ["considerava", false], "d": ["vai considerar", false] },
+                { "g": "O gerente ___ os resultados na reunião.", "e": "The manager presented the results at the meeting.", "a": ["apresentou", true], "b": ["apresenta", false], "c": ["apresentava", false], "d": ["apresentará", false] },
+                { "g": "Eu ___ um banho quente antes de dormir.", "e": "I took a hot shower before sleeping.", "a": ["tomei", true], "b": ["tomo", false], "c": ["tomava", false], "d": ["tomarei", false] },
+                { "g": "Eles ___ jogando quando começou a chover.", "e": "They were playing when it started to rain.", "a": ["tavam", true], "b": ["ficavam", false], "c": ["foram", false], "d": ["são", false] },
+                { "g": "Ela ___ uma ideia interessante para o projeto.", "e": "She had an interesting idea for the project.", "a": ["teve", true], "b": ["tinha", false], "c": ["terá", false], "d": ["tem", false] },
+                { "g": "Nós vamos ___ nosso trabalho na conferência.", "e": "We are going to present our work at the conference.", "a": ["apresentar", true], "b": ["apresentamos", false], "c": ["apresentando", false], "d": ["apresentado", false] }
+            ]
+        ]
+        `);
+        language[0].sort(() => Math.random() - 0.5);
+    </script>
+    <script>
+        let german = language[0];
+        let currentQuestion = 0;
+        let qElements = [document.getElementById("one"),document.getElementById("two"),document.getElementById("three"),document.getElementById("four")];
+        for(let i=0;i<4;i++){
+            qElements[i].style.backgroundColor = "rgba(239, 239, 239)";
+            qElements[i].style.color = "black"; 
+        }
+        function newQuestion(){
+            let loc = german[currentQuestion];
+            data.question = loc.g;
+            data.subtext = loc.e;
+            data.options = [
+                [loc.a[0],loc.a[1]],
+                [loc.b[0],loc.b[1]],
+                [loc.c[0],loc.c[1]],
+                [loc.d[0],loc.d[1]],
+            ].sort(()=>Math.random()-0.5);
+        }
+        function next(){
+            data.next = false;
+            currentQuestion ++;
+            for(let i=0;i<4;i++){
+                qElements[i].style.backgroundColor = "rgba(239, 239, 239)";
+                qElements[i].style.color = "black"; 
+            }
+            newQuestion();
+        }
+        newQuestion();
+        function answer(option){
+            if(currentQuestion>=german.length){
+                data.complete = true;
+            }
+            let loc = german[currentQuestion];
+            let locs = [loc.a,loc.b,loc.c,loc.d];
+            for(let i=0;i<4;i++){
+                console.log(locs[i][0]+" "+qElements[i].innerText)
+                for(let b=0;b<4;b++){
+                    if(qElements[i].innerHTML==locs[b][0]&&locs[b][1]){qElements[i].style.backgroundColor = "rgb(131, 204, 131)"}
+                }
+                qElements[i].style.color = "white"; 
+            }
+            data.next = true;
+        }
+    </script>
+</body>
+</html>
