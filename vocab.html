@@ -14,11 +14,11 @@
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
 .slide-off{
-    animation: slideoff 1s ease-out;
+    animation: slideoff 0.5s ease-in;
     animation-fill-mode: forwards;
 }
 .novo{
-    animation: novo 1s ease-out;
+    animation: novo 0.5s ease-out;
     animation-fill-mode: forwards;
 }
 
@@ -43,6 +43,10 @@
 }
 .pre-lev{
   box-shadow: 0px 0px 12px rgba(0,0,0,0.1), 4px 4px 12px rgba(0,0,0,0.1);
+}
+.f-xs{
+    font-size: 10px;
+    font-style: italic;
 }
 /* Do an horizontal flip when you move the mouse over the flip box container */
 .flip-box:hover .flip-box-inner {
@@ -97,7 +101,19 @@
     
     const box = document.getElementById("box");
     data.waiting = false;
-    data.cards = [["🍓", "le fraga"],["🍎", "le malo"],["🍌", "le banana"],["🥖", "le pan"],["👋", "hallo!"]];
+    data.cards = [
+        ["tentar", "to try,<br/><span class='f-xs'>eu tento, tu tentas</span>"],
+        ["trazer", "to bring*,<br/><span class='f-xs'>eu trago, tu trazes, ele traz</span>"],
+        ["aparecer", "to appear,<br/><span class='f-xs'>eu apareço, tu apareces</span>"],
+        ["manter", "to maintain*,<br/><span class='f-xs'>eu mantenho, tu manténs</span>"],
+        ["mostrar", "to show,<br/><span class='f-xs'>eu mostro, tu mostras</span>"],
+        ["colocar", "to place,<br/><span class='f-xs'>eu coloco, tu coloras</span>"],
+        ["entender", "to understand,<br/><span class='f-xs'>eu entendo, tu entendes</span>"],
+        ["perder", "to lose,<br/><span class='f-xs'>eu perco, tu perdes</span>"],
+        ["pedir", "to ask,<br/><span class='f-xs'>eu peço, tu pedes</span>"],
+        ["seguir", "to follow,<br/><span class='f-xs'>eu sigo, tu segues</span>"],
+        ["sentir", "to feel,<br/><span class='f-xs'>eu sinto, tu sentes</span>"]
+    ];
     window.addEventListener('click',(()=>{
       if(!data.waiting&&data.number<data.cards.length-1){
         box.classList.add("slide-off");
@@ -109,8 +125,8 @@
             box.classList.remove("slide-off");
             box.classList.remove("novo");
             data.waiting = false;
-          },1000);
-        }),1000);
+          },500);
+        }),500);
       }else if(data.number==data.cards.length-1){
         alert("Deck complete!")
       }
