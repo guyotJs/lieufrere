@@ -1,474 +1,440 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marcos — Evangelho</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --gold: #b8860b;
-    --gold-light: #d4a017;
-    --gold-dim: #7a5c08;
-    --ink: #0e0c09;
-    --ink-mid: #1c1a15;
-    --ink-light: #2a2720;
-    --parchment: #f5f0e8;
-    --parchment-dim: #e8e0cc;
-    --text: #e8e0cc;
-    --text-dim: #a09880;
-  }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Marcos</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap');
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --gold: #b8860b;
+  --gold-light: #d4a017;
+  --gold-dim: #7a5c08;
+  --ink: #0e0c09;
+  --ink-mid: #1c1a15;
+  --ink-light: #2a2720;
+  --parchment: #f5f0e8;
+  --parchment-dim: #e8e0cc;
+  --text: #e8e0cc;
+  --text-dim: #a09880;
+}
 
-  body {
-    background: var(--ink);
-    color: var(--text);
-    font-family: 'IM Fell English', serif;
-    min-height: 100vh;
-    padding: 3rem 2rem 6rem;
-    position: relative;
-    overflow-x: hidden;
-  }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* Decorative background texture */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 10%, rgba(184,134,11,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 90%, rgba(184,134,11,0.05) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: 'IM Fell English', serif;
+  min-height: 100vh;
+  padding: 3rem 2rem 6rem;
+  position: relative;
+  overflow-x: hidden;
+}
 
-  .page {
-    max-width: 680px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
+/* Decorative background texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(184,134,11,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(184,134,11,0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
 
-  /* Header */
-  header {
-    text-align: center;
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--gold-dim);
-    position: relative;
-  }
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
 
-  header::after {
-    content: '✦';
-    position: absolute;
-    bottom: -0.65em;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--ink);
-    padding: 0 0.5rem;
-    color: var(--gold);
-    font-size: 0.9rem;
-  }
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--gold-dim);
+  position: relative;
+}
 
-  .book-label {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-  }
+header::after {
+  content: '✦';
+  position: absolute;
+  bottom: -0.65em;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  padding: 0 0.5rem;
+  color: var(--gold);
+  font-size: 0.9rem;
+}
 
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.4rem;
-    font-weight: 400;
-    color: var(--parchment);
-    line-height: 1.1;
-  }
+.book-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
 
-  h1 em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--parchment);
+  line-height: 1.1;
+}
 
-  .chapter-label {
-    margin-top: 0.5rem;
-    font-family: 'IM Fell English', serif;
-    font-style: italic;
-    font-size: 0.9rem;
-    color: var(--text-dim);
-  }
+h1 em {
+  font-style: italic;
+  color: var(--gold-light);
+}
 
-  /* Verses */
-  .verses {
-    display: flex;
-    flex-direction: column;
-    gap: 1.8rem;
-  }
+.chapter-label {
+  margin-top: 0.5rem;
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
 
-  .verse {
-    display: flex;
-    gap: 1rem;
-    align-items: baseline;
-  }
+/* Verses */
+.verses {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
 
-  .verse-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.7rem;
-    color: var(--gold);
-    letter-spacing: 0.05em;
-    min-width: 1.4rem;
-    padding-top: 0.25rem;
-    flex-shrink: 0;
-    user-select: none;
-  }
+.verse {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
 
-  .verse-text {
-    font-size: 1.2rem;
-    line-height: 1.85;
-    color: var(--parchment-dim);
-  }
+.verse-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.7rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  min-width: 1.4rem;
+  padding-top: 0.25rem;
+  flex-shrink: 0;
+  user-select: none;
+}
 
-  /* Word buttons */
-  .word {
-    background: none;
-    border: none;
-    color: inherit;
-    font: inherit;
-    font-size: inherit;
-    cursor: pointer;
-    padding: 0.05em 0.1em;
-    border-radius: 2px;
-    position: relative;
-    transition: color 0.15s, background 0.15s;
-    display: inline;
-  }
+.verse-text {
+  font-size: 1.2rem;
+  line-height: 1.85;
+  color: var(--parchment-dim);
+}
 
-  .word:hover {
-    color: var(--gold-light);
-    background: rgba(184,134,11,0.08);
-  }
+/* Word buttons */
+.word {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0.05em 0.1em;
+  border-radius: 2px;
+  position: relative;
+  transition: color 0.15s, background 0.15s;
+  display: inline;
+}
 
-  .word.active {
-    color: var(--gold-light);
-    background: rgba(184,134,11,0.15);
-  }
+.word:hover {
+  color: var(--gold-light);
+  background: rgba(184,134,11,0.08);
+}
 
-  /* Popup */
-  #popup {
-    position: fixed;
-    z-index: 100;
-    width: 300px;
-    background: var(--ink-mid);
-    border: 1px solid var(--gold-dim);
-    border-radius: 4px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(184,134,11,0.1);
-    display: none;
-    overflow: hidden;
-  }
+.word.active {
+  color: var(--gold-light);
+  background: rgba(184,134,11,0.15);
+}
 
-  #popup.visible {
-    display: block;
-    animation: popIn 0.15s ease;
-  }
+/* Popup */
+#popup {
+  position: fixed;
+  z-index: 100;
+  width: 300px;
+  background: var(--ink-mid);
+  border: 1px solid var(--gold-dim);
+  border-radius: 4px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(184,134,11,0.1);
+  display: none;
+  overflow: hidden;
+}
 
-  @keyframes popIn {
-    from { opacity: 0; transform: translateY(-6px) scale(0.97); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-  }
+#popup.visible {
+  display: block;
+  animation: popIn 0.15s ease;
+}
 
-  .popup-header {
-    background: var(--ink-light);
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--gold-dim);
-  }
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-  .popup-word {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: var(--gold-light);
-    font-style: italic;
-  }
+.popup-header {
+  background: var(--ink-light);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gold-dim);
+}
 
-  .popup-close {
-    background: none;
-    border: none;
-    color: var(--text-dim);
-    font-size: 1rem;
-    cursor: pointer;
-    line-height: 1;
-    padding: 0.1rem 0.3rem;
-    border-radius: 2px;
-    transition: color 0.15s;
-  }
+.popup-word {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--gold-light);
+  font-style: italic;
+}
 
-  .popup-close:hover { color: var(--parchment); }
+.popup-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+  transition: color 0.15s;
+}
 
-  .popup-body {
-    padding: 0.9rem 1rem 1rem;
-    font-size: 0.92rem;
-    line-height: 1.6;
-    color: var(--text);
-    min-height: 60px;
-  }
+.popup-close:hover { color: var(--parchment); }
 
-  .popup-body.loading {
-    color: var(--text-dim);
-    font-style: italic;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
+.popup-body {
+  padding: 0.9rem 1rem 1rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text);
+  min-height: 60px;
+}
 
-  .spinner {
-    width: 14px;
-    height: 14px;
-    border: 2px solid var(--gold-dim);
-    border-top-color: var(--gold);
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-    flex-shrink: 0;
-  }
+.popup-body.loading {
+  color: var(--text-dim);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-  @keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--gold-dim);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  flex-shrink: 0;
+}
 
-  .popup-section {
-    margin-bottom: 0.6rem;
-  }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-  .popup-section:last-child { margin-bottom: 0; }
+.popup-section {
+  margin-bottom: 0.6rem;
+}
 
-  .popup-label {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.65rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.2rem;
-  }
+.popup-section:last-child { margin-bottom: 0; }
 
-  .popup-value {
-    color: var(--parchment);
-  }
+.popup-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.2rem;
+}
 
-  .popup-value em {
-    font-style: italic;
-    color: var(--text-dim);
-  }
+.popup-value {
+  color: var(--parchment);
+}
 
-  /* Footer */
-  footer {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--ink-light);
-    text-align: center;
-    font-style: italic;
-    font-size: 0.8rem;
-    color: var(--text-dim);
-  }
-</style>
+.popup-value em {
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+/* Footer */
+footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ink-light);
+  text-align: center;
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+  </style>
 </head>
 <body>
 
-<div class="page">
-  <header>
-    <div class="book-label">Novo Testamento</div>
-    <h1>Evangelho de <em>Marcos</em></h1>
-    <div class="chapter-label">Capítulo I, Versículos 1–3</div>
-  </header>
+  <div class="page">
+    <header>
+      <div class="book-label">Novo Testamento</div>
+      <h1>Evangelho de <em>Marcos</em></h1>
+      <div class="chapter-label">Capítulo I, Versículos 1–3</div>
+    </header>
 
-  <div class="verses" id="insert"></div>
+    <div class="verses" id="insert"></div>
 
-  <footer>Clique em qualquer palavra para ver a tradução e conjugação.</footer>
-</div>
-
-<!-- Popup -->
-<div id="popup">
-  <div class="popup-header">
-    <span class="popup-word" id="popup-word"></span>
-    <button class="popup-close" onclick="closePopup()">✕</button>
+    <footer>Clique em qualquer palavra para ver a tradução.</footer>
   </div>
-  <div class="popup-body" id="popup-body">
-    <div class="spinner"></div> A carregar…
+
+  <!-- Popup -->
+  <div id="popup">
+    <div class="popup-header">
+      <span class="popup-word" id="popup-word"></span>
+      <button class="popup-close" onclick="closePopup()">✕</button>
+    </div>
+    <div class="popup-body" id="popup-body">
+      <!-- Your translation content goes here -->
+    </div>
   </div>
-</div>
 
-<script>
-var marcos = [
-  [
-    "Princípio do evangelho de Jesus Cristo, Filho de Deus.",
-    "Conforme está escrito na profecia de Isaías: Eis aí envio diante da tua face o meu mensageiro, o qual preparará o teu caminho;",
-    "voz do que clama no deserto: Preparai o caminho do Senhor, endireitai as suas veredas;"
-  ]
-];
+  <script>
+    var marcos = [
+      [
+        "Princípio do evangelho de Jesus Cristo, Filho de Deus.",
+        "Conforme está escrito na profecia de Isaías: Eis aí envio diante da tua face o meu mensageiro, o qual preparará o teu caminho;",
+        "voz do que clama no deserto: Preparai o caminho do Senhor, endireitai as suas veredas;"
+      ]
+    ]
+    var body = document.getElementById("insert");
 
-// Split verses into word tokens
-for (var i = 0; i < marcos[0].length; i++) {
-  marcos[0][i] = marcos[0][i].split(" ");
-}
+    // Split each verse into each word
+    for(var i=0;i<marcos[0].length;i++){
+      var currentVerse = marcos[0][i];
+      marcos[0][i] = currentVerse.split(" ");
+    }
 
-// Render
-var container = document.getElementById("insert");
-var html = "";
-for (var i = 0; i < marcos[0].length; i++) {
-  html += `<div class="verse"><span class="verse-num">${i + 1}</span><span class="verse-text">`;
-  for (var z = 0; z < marcos[0][i].length; z++) {
-    var rawWord = marcos[0][i][z];
-    // Escape for attribute use
-    var escaped = rawWord.replace(/"/g, '&quot;');
-    html += `<button class="word" data-word="${escaped}" onclick="onWordClick(this)">${rawWord}</button> `;
-  }
-  html += `</span></div>`;
-}
-container.innerHTML = html;
+    var finalHTML = "";
 
-// Popup state
-var activeBtn = null;
-var cache = {};
+    for(var i=0;i<marcos[0].length;i++){
+      finalHTML += `<div class="verse"><span class="verse-num">${i+1}</span><span class="verse-text">`;
+      for(var z=0;z<marcos[0][i].length;z++){
+        var word = marcos[0][i][z];
+        finalHTML += `<button class="word" onclick="onWordClick(this)">${word}</button> `;
+      }
+      finalHTML += `</span></div>`;
+    }
 
-function onWordClick(btn) {
-  if (activeBtn && activeBtn !== btn) {
-    activeBtn.classList.remove("active");
-  }
-  activeBtn = btn;
-  btn.classList.add("active");
+    body.innerHTML = finalHTML;
 
-  var word = btn.dataset.word;
-  // Strip punctuation for lookup
-  var clean = word.replace(/[.,;:!?"""''()\[\]]/g, "");
+    // --- Popup logic ---
+    var activeBtn = null;
 
-  showPopup(btn, word, clean);
-}
+    function onWordClick(btn) {
+      if (activeBtn && activeBtn !== btn) activeBtn.classList.remove("active");
+      activeBtn = btn;
+      btn.classList.add("active");
 
-function showPopup(btn, displayWord, cleanWord) {
-  var popup = document.getElementById("popup");
-  var wordEl = document.getElementById("popup-word");
-  var body = document.getElementById("popup-body");
+      var word = btn.textContent.replace(/[.,;:!?]/g, "");
+      document.getElementById("popup-word").textContent = btn.textContent;
 
-  wordEl.textContent = displayWord;
-  body.className = "popup-body loading";
-  body.innerHTML = '<div class="spinner"></div> A carregar…';
-  popup.classList.add("visible");
+      // Hook your translation data in here:
+      var info = getWordInfo(word);
+      document.getElementById("popup-body").innerHTML = info;
 
-  positionPopup(btn);
+      var popup = document.getElementById("popup");
+      popup.classList.add("visible");
+      positionPopup(btn);
+    }
 
-  if (cache[cleanWord]) {
-    renderPopupContent(cache[cleanWord]);
-    return;
-  }
+    function positionPopup(btn) {
+      var popup = document.getElementById("popup");
+      var rect = btn.getBoundingClientRect();
+      var pw = 300, margin = 8;
+      var left = Math.min(rect.left, window.innerWidth - pw - margin);
+      if (left < margin) left = margin;
+      var top = rect.bottom + margin + window.scrollY;
+      if (rect.bottom + 180 > window.innerHeight) top = rect.top + window.scrollY - 180 - margin;
+      popup.style.left = left + "px";
+      popup.style.top = top + "px";
+    }
 
-  fetchWordInfo(cleanWord).then(function(info) {
-    cache[cleanWord] = info;
-    renderPopupContent(info);
-  });
-}
+    function closePopup() {
+      document.getElementById("popup").classList.remove("visible");
+      if (activeBtn) { activeBtn.classList.remove("active"); activeBtn = null; }
+    }
 
-function positionPopup(btn) {
-  var popup = document.getElementById("popup");
-  var rect = btn.getBoundingClientRect();
-  var pw = 300;
-  var margin = 8;
-
-  var left = rect.left;
-  if (left + pw > window.innerWidth - margin) {
-    left = window.innerWidth - pw - margin;
-  }
-  if (left < margin) left = margin;
-
-  var top = rect.bottom + margin + window.scrollY;
-  // If too close to bottom, show above
-  if (rect.bottom + 180 > window.innerHeight) {
-    top = rect.top + window.scrollY - 180 - margin;
-  }
-
-  popup.style.left = left + "px";
-  popup.style.top = top + "px";
-}
-
-function closePopup() {
-  document.getElementById("popup").classList.remove("visible");
-  if (activeBtn) {
-    activeBtn.classList.remove("active");
-    activeBtn = null;
-  }
-}
-
-function renderPopupContent(info) {
-  var body = document.getElementById("popup-body");
-  body.className = "popup-body";
-
-  var html = "";
-  if (info.translation) {
-    html += `<div class="popup-section">
-      <div class="popup-label">Translation</div>
-      <div class="popup-value">${info.translation}</div>
-    </div>`;
-  }
-  if (info.pos) {
-    html += `<div class="popup-section">
-      <div class="popup-label">Part of Speech</div>
-      <div class="popup-value">${info.pos}</div>
-    </div>`;
-  }
-  if (info.conjugation) {
-    html += `<div class="popup-section">
-      <div class="popup-label">Conjugation / Form</div>
-      <div class="popup-value">${info.conjugation}</div>
-    </div>`;
-  }
-  if (!html) {
-    html = `<div class="popup-value"><em>No information available.</em></div>`;
-  }
-  body.innerHTML = html;
-}
-
-async function fetchWordInfo(word) {
-  if (!word || word.trim() === "") return { translation: "—" };
-
-  const prompt = `You are a Portuguese biblical linguistics assistant. The user clicked the European Portuguese word "${word}" from Mark 1:1-3 (Portuguese Bible).
-
-Return ONLY a JSON object (no markdown, no explanation) with these fields:
-- "translation": English translation of this word in context (concise, 1-5 words)
-- "pos": part of speech (e.g. "noun, masculine", "verb, 3rd person singular present", "preposition", "article", etc.)
-- "conjugation": if it is a verb, give the infinitive and the tense/person/number. If it is a noun or adjective, note its gender and number. If it is a particle/preposition/article, omit this field or set to null.
-
-Example output:
-{"translation":"beginning","pos":"noun, masculine singular","conjugation":null}`;
-
-  try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        messages: [{ role: "user", content: prompt }]
-      })
+    document.addEventListener("click", function(e) {
+      var popup = document.getElementById("popup");
+      if (popup.classList.contains("visible") &&
+          !popup.contains(e.target) &&
+          !e.target.classList.contains("word")) closePopup();
     });
-    const data = await response.json();
-    const text = data.content.map(b => b.text || "").join("").trim();
-    const clean = text.replace(/```json|```/g, "").trim();
-    const parsed = JSON.parse(clean);
-    return parsed;
-  } catch (e) {
-    return { translation: "Error fetching data.", pos: null, conjugation: null };
-  }
-}
 
-// Close popup on outside click
-document.addEventListener("click", function(e) {
-  var popup = document.getElementById("popup");
-  if (popup.classList.contains("visible") &&
-      !popup.contains(e.target) &&
-      !e.target.classList.contains("word")) {
-    closePopup();
-  }
-});
-</script>
+    // --- Your translation data goes here ---
+    var dict = [
+      "Princípio", ["beginning", "noun, masculine singular"],
+      "do", ["of the", "contraction (preposition 'de' + article 'o')"],
+      "evangelho", ["gospel", "noun, masculine singular"],
+      "de", ["of/from", "preposition"],
+      "Jesus", ["Jesus", "noun, masculine singular (proper name)"],
+      "Cristo", ["Christ", "noun, masculine singular (proper name)"],
+      "Filho", ["Son", "noun, masculine singular"],
+      "Deus", ["God", "noun, masculine singular (proper name)"],
+      "Conforme", ["as/according to", "conjunction/adverb"],
+      "está", ["is", "verb, estar, 3rd person singular present"],
+      "escrito", ["written", "verb, escrever, past participle"],
+      "na", ["in the", "contraction (preposition 'em' + article 'a')"],
+      "profecia", ["prophecy", "noun, feminine singular"],
+      "Isaías", ["Isaiah", "noun, masculine singular (proper name)"],
+      "Eis", ["behold/here is", "interjection"],
+      "aí", ["there", "adverb"],
+      "envio", ["I send", "verb, enviar, 1st person singular present"],
+      "diante", ["before/in front of", "preposition/adverb"],
+      "da", ["of the", "contraction (preposition 'de' + article 'a')"],
+      "tua", ["your", "possessive pronoun, feminine singular"],
+      "face", ["face", "noun, feminine singular"],
+      "o", ["the", "definite article, masculine singular"],
+      "meu", ["my", "possessive pronoun, masculine singular"],
+      "mensageiro", ["messenger", "noun, masculine singular"],
+      "qual", ["which/who", "relative pronoun"],
+      "preparará", ["will prepare", "verb, preparar, 3rd person singular future"],
+      "teu", ["your", "possessive pronoun, masculine singular"],
+      "caminho", ["way/path", "noun, masculine singular"],
+      "voz", ["voice", "noun, feminine singular"],
+      "que", ["who/that/which", "relative pronoun/conjunction"],
+      "clama", ["cries out", "verb, clamar, 3rd person singular present"],
+      "no", ["in the", "contraction (preposition 'em' + article 'o')"],
+      "deserto", ["desert/wilderness", "noun, masculine singular"],
+      "Preparai", ["prepare", "verb, preparar, 2nd person plural imperative"],
+      "Senhor", ["Lord", "noun, masculine singular"],
+      "endireitai", ["make straight", "verb, endireitar, 2nd person plural imperative"],
+      "as", ["the", "definite article, feminine plural"],
+      "suas", ["his/its", "possessive pronoun, feminine plural"],
+      "veredas", ["paths/ways", "noun, feminine plural"],
+    ]
+    function getWordInfo(word) {
+      var checked = dict.indexOf(word);
+      
+      // Replace this with your own lookup logic.
+      // Return an HTML string to display inside the popup body.
+      if(checked == -1){
+        return `<div class="popup-section">
+          <div class="popup-label">Translation</div>
+          <div class="popup-value"><em>— add "${word}" to your dictionary —</em></div>
+        </div>`;
+      }
+      else{
+        return `<div class="popup-section">
+          <div class="popup-label">Translation</div>
+          <div class="popup-value"><em>${dict[checked+1][0]}</em></div>
+          <div class="popup-label">Part of Speech</div>
+          <div class="popup-value"><em>${dict[checked+1][1]}</em></div>
+        </div>`;
+      }
+    }
+  </script>
+
 </body>
 </html>
